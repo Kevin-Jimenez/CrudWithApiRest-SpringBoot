@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Personas</title>
+    <!-- BOTSTRAP -->
+    <link rel="stylesheet" href="../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+    <div class="container">
+        <br>
+        <br>
+        <div>
+            <a href="/save/0" class="btn btn-primary"> Agregar</a>
+        </div>
+        <div th:switch="${list}">
+            <!-- Condicion para cuando la tabla este vacia-->
+            <h2 th:if="${list.isEmpty()}">Not data found</h2>
+            <!-- fin -->
+            <div th:if="${!list.isEmpty()}">
+                <h2>Personas</h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Last Name</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th> </th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="persona : ${list}">
+                            <td th:text="${persona.name}"></td>
+                            <td th:text="${persona.last_name}"></td>
+                            <td th:text="${persona.address}"></td>
+                            <td th:text="${persona.phone}"></td>
+                            <td><a class="btn btn-info" th:href="@{/save/{id}(id=${persona.id})}" >Editar</a></td>
+                            <td><a class="btn btn-danger" th:href="@{/delete/{id}(id=${persona.id})}" >Eliminar</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
